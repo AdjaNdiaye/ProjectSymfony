@@ -22,7 +22,24 @@ public function __construct(UserPasswordHasherInterface $encoder)
          $encoded = $this->encoder->hashpassword($user,'123');
          $user->setPassword($encoded);
         $user->setRoles(['ROLE_USER']);
+        
+        $admin = new User();
+        $admin->setNom('Admin')->setPrenom('Yvon');
+        $admin->setEmail('admin@ecommerce.com');
+        $encodedAdmin = $this->encoder->hashPassword($admin, 'admin_password');
+        $admin->setPassword($encodedAdmin);
+        $admin->setRoles(['ROLE_ADMIN']);
+        $manager->persist($admin);
 
+        $employee = new User();
+        $employee->setNom('Dupont')->setPrenom('Jules');
+        $employee->setEmail('jules.dupont@ecommerce.com');
+        $encodedEmployee = $this->encoder->hashPassword($employee, 'employee_password');
+        $employee->setPassword($encodedEmployee);
+        $employee->setRoles(['ROLE_EMPLOYEE']);
+        
+        $manager->persist($admin);
+        $manager->persist($employee);
         $manager->persist($user);
         $manager->flush();
     }
