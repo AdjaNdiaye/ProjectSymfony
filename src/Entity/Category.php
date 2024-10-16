@@ -18,6 +18,10 @@ class Category
 
     #[ORM\Column(length: 255)]
     private ?string $description = null;
+    
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
 
     public function getId(): ?int
     {
@@ -53,5 +57,17 @@ class Category
         $this->description = $description;
 
         return $this;
+    }
+
+    public function getImage(): ?string
+    {
+    return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+    $this->image = $image;
+
+    return $this;
     }
 }
